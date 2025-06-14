@@ -133,7 +133,7 @@ const App = () => {
       formData.append('deceasedName', deceasedName);
       selectedFiles.forEach(file => formData.append('files', file));
 
-      const response = await fetch('https://photosendsystem.onrender.com', {
+      const response = await fetch('https://photosendsystem-api.onrender.com/api/send-email', {
   method: 'POST',
         headers: {
           "Content-Type": "application/json"
