@@ -133,8 +133,8 @@ const App = () => {
       formData.append('deceasedName', deceasedName);
       selectedFiles.forEach(file => formData.append('files', file));
 
-      const response = await fetch("git push origin mainhttps://photosendsystem.onrender.com", {
-        method: "POST",
+      const response = await fetch('https://photosendsystem.onrender.com', {
+  method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
