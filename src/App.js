@@ -133,9 +133,12 @@ const App = () => {
       formData.append('deceasedName', deceasedName);
       selectedFiles.forEach(file => formData.append('files', file));
 
-      const response = await fetch("/api/send-email", {
-        method: 'POST',
-        body: formData, // ✅ headers는 제거해야 FormData가 제대로 전송됨
+      const response = await fetch("https://photosendsystem.vercel.app/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ ... })
       });
 
       const result = await response.json();
