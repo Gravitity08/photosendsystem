@@ -1,31 +1,64 @@
-import nodemailer from 'nodemailer';
+// api/send-email.js 또는 server/send-email.js
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).end();
-  }
+const express = require("express");
+const cors = require("cors");
+const multer = require("multer");
+const nodemailer = require("nodemailer");
+const path = require("path");
 
-  const { customerName, phoneNumber, deceasedName, fileInfos } = req.body;
+const app = express();
+const PORT = process.env.PORT || 4000;
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+// ─────────────────────────────
+// ✅ 미들웨어
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER,
-    subject: `[사진 접수] ${new Date().toLocaleDateString()} 접수`,
-    text: `${customerName} / ${phoneNumber} / ${deceasedName}\n\n${fileInfos}`,
-  };
+const upload = multer({ storage: multer.memoryStorage() });
 
+// ─────────────────────────────
+// ✅ 메일 전송 라우트
+app.post("/send-email", upload.array("files"), async (req, res) => {
   try {
+    const { customerName, phoneNumber, deceasedName } = req.body;
+    const files = req.files;
+
+    if (!customerName || !phoneNumber || !deceasedName || files.length === 0) {
+      return res.status(400).json({ error: "모든 필수 항목을 입력해 주세요." });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const date = new Date().toISOString().split("T")[0];
+
+    const mailOptions = {
+      from: `"사진 접수 시스템" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_USER,
+      subject: `[${date}] ${customerName}님의 사진 접수`,
+      text: `- 고객 이름: ${customerName}\n- 전화번호: ${phoneNumber}\n- 고인 이름: ${deceasedName}`,
+      attachments: files.map((file) => ({
+        filename: file.originalname,
+        content: file.buffer,
+      })),
+    };
+
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: '전송 완료' });
-  } catch (error) {
-    res.status(500).json({ error: '메일 전송 실패' });
+    res.status(200).json({ message: "메일 전송 완료" });
+  } catch (err) {
+    console.error("메일 전송 오류:", err);
+    res.status(500).json({ error: "메일 전송 실패" });
   }
-}
+});
+
+// ─────────────────────────────
+// ✅ 서버 실행
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
