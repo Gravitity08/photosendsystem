@@ -16,6 +16,9 @@ const App = () => {
     setSelectedFiles(updatedFiles);
     validateForm(customerName, phoneNumber, deceasedName, updatedFiles);
   };
+  const user = process.env.EMAIL_USER;
+  const pass = process.env.EMAIL_PASS;
+
 
   const validateForm = (currentCustomerName, currentPhoneNumber, currentDeceasedName, currentSelectedFiles) => {
     const isValid =
@@ -130,7 +133,7 @@ const App = () => {
       formData.append('deceasedName', deceasedName);
       selectedFiles.forEach(file => formData.append('files', file));
 
-      const response = await fetch('http://localhost:4000/send-email', {
+      const response = await fetch("/api/send-email", {
         method: 'POST',
         body: formData, // ✅ headers는 제거해야 FormData가 제대로 전송됨
       });
