@@ -1,9 +1,9 @@
 {
-  "name": "photosend-server",
+  "name": "server",
   "version": "1.0.0",
-  "main": "api/send-email.js",
+  "main": "send-email.js",
   "scripts": {
-     "start": "node api/send-email.js"
+    "start": "node send-email.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
