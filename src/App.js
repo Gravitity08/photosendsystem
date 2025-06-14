@@ -133,12 +133,12 @@ const App = () => {
       formData.append('deceasedName', deceasedName);
       selectedFiles.forEach(file => formData.append('files', file));
 
-      const response = await fetch("https://photosendsystem.vercel.app/", {
+      const response = await fetch("git push origin mainhttps://photosendsystem.onrender.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ ... })
+        body: formData,
       });
 
       const result = await response.json();
