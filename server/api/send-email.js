@@ -19,7 +19,7 @@ const corsOptions = {
   }
 };
 app.use(cors(corsOptions));               // 모든 라우트에 CORS 적용
-app.options("/send-email", cors(corsOptions)); // preflight 처리
+app.options("/*splat", cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
