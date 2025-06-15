@@ -8,16 +8,20 @@ const nodemailer = require("nodemailer");
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-const allowedOrigins = [
-  "https://photosendsystem-jiwg.vercel.app",
-  "https://photosendsystem-jiwg-ezs81e8g8-leetaehoons-projects.vercel.app"
-];
+// photosendsystem-jiwg.vercel.app 와
+// photosendsystem-jiwg-<previewId>.vercel.app 모두 매치
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) callback(null, true);
-    else callback(new Error("허용되지 않은 출처입니다"));
+  origin(origin, callback) {
+    if (
+      !origin ||
+      /^https:\/\/photosendsystem-jiwg(?:-[a-z0-9-]+)?\.vercel\.app$/.test(origin)
+    ) {
+      return callback(null, true);
+    }
+    callback(new Error("허용되지 않은 출처입니다"));
   }
 };
+
 app.use(cors(corsOptions));               // 모든 라우트에 CORS 적용
 app.options("/*splat", cors(corsOptions));
 
