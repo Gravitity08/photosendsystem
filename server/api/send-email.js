@@ -9,11 +9,23 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// ─────────────────────────────
-// ✅ 미들웨어
+const allowedOrigins = [
+  "https://photosendsystem-jiwg-kahddfy3b-leetaehoons-projects.vercel.app",
+  "https://photosendsystem-jiwg-ezs81e8g8-leetaehoons-projects.vercel.app",
+];
+
+// ✅ CORS: origin 허용 + preflight 처리
 app.use(cors({
-  origin: "https://photosendsystem-jiwg-ezs81e8g8-leetaehoons-projects.vercel.app/"  // 정확한 Vercel 주소 입력
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
 }));
+app.options("*", cors()); // ✅ preflight OPTIONS 처리
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
