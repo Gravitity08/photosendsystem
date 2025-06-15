@@ -14,10 +14,12 @@ const allowedOrigins = [
 ];
 
 // ✅ CORS: origin 허용 + preflight 처리
+const allowedOriginsRegex = /^https:\/\/photosendsystem-[a-z0-9]+-leetaehoons-projects\.vercel\.app$/;
+
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // 서버-서버 요청 등 허용
-    if (/^https:\/\/photosendsystem-jiwg-[a-z0-9]+-leetaehoons-projects\.vercel\.app$/.test(origin)) {
+    if (!origin) return callback(null, true); // 서버 간 요청 허용
+    if (allowedOriginsRegex.test(origin)) {
       return callback(null, true);
     }
     callback(new Error("Not allowed by CORS"));
