@@ -8,11 +8,19 @@ const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-
+const cors = require("cors");
 const allowedOrigins = [
   "https://photosendsystem-jiwg.vercel.app",
   "https://photosendsystem-jiwg-ezs81e8g8-leetaehoons-projects.vercel.app"
 ];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) callback(null, true);
+    else callback(new Error("허용되지 않은 출처입니다"));
+  }
+};
+app.use(cors(corsOptions));               // 모든 라우트에 CORS 적용
+app.options("/send-email", cors(corsOptions)); // preflight 처리
 
 // ✅ CORS: origin 허용 + preflight 처리
 const allowedOriginsRegex = /^https:\/\/photosendsystem-[a-z0-9]+-leetaehoons-projects\.vercel\.app$/;
@@ -36,7 +44,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 // ─────────────────────────────
 // ✅ 메일 전송 라우트
-app.post("/send-email", upload.array("files"), async (req, res) => {
+app.post("/send-email", cors(corsOptions), upload.array("files"), async (req, res) => {
   try {
     const { customerName, phoneNumber, deceasedName } = req.body;
     const files = req.files;
