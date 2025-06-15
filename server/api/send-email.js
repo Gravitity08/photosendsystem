@@ -62,11 +62,12 @@ app.post(
         from: `"사진 접수 시스템" <${process.env.EMAIL_USER}>`,
         to: process.env.RECIPIENT_EMAIL,      // ← 여기를 RECIPIENT_EMAIL 으로
         subject: `[${date}] ${customerName}님의 사진 접수`,
-        text: `- 고객 이름: ${customerName}\n- 전화번호: ${phoneNumber}\n- 고인 이름: ${deceasedName}`,
-        attachments: files.map(file => ({
+        text: `- 고객 이름: ${customerName}\n- 전화번호: ${phoneNumber}\n- 가족 이름: ${deceasedName}`,
+        attachments: files.map((file) => ({
           filename: file.originalname,
           content: file.buffer,
-        })),
+          encoding: 'base64', // 명시적으로 base64 설정
+        }))
       };
 
       await transporter.sendMail(mailOptions);
