@@ -133,7 +133,7 @@ const App = () => {
       formData.append('deceasedName', deceasedName);
       selectedFiles.forEach(file => formData.append('files', file));
 
-      const response = await fetch('https://photosendsystem-1.onrender.com/send-email', {
+      const response = await fetch("/send-email", {
         method: 'POST',
         body: formData, // ✅ Content-Type은 삭제해야 함
       });
