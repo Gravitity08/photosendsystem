@@ -1,9 +1,7 @@
 {
-  "version": 2,
-  "functions": {
-    "api/send-email.js": {
-      "memory": 512,
-      "maxDuration": 10
+  "projects": {
+    "photosendsystem": {
+      "rootDirectory": "client"
     }
   }
 }
