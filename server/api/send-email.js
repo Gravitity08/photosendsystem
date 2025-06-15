@@ -27,7 +27,7 @@ app.use(cors({
   }
 }));
 
-app.options("*", cors()); // ✅ preflight OPTIONS 처리
+app.options("/send-email", cors()); // ✅ preflight OPTIONS 처리
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
