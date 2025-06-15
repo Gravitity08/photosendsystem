@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 const allowedOrigins = [
-  "https://photosendsystem.vercel.app"
+  "https://photosendsystem-jiwg.vercel.app"
 ];
 
 // ✅ CORS: origin 허용 + preflight 처리
