@@ -14,7 +14,8 @@ const corsOptions = {
   origin(origin, callback) {
     if (
       !origin ||
-      /^https:\/\/photosendsystem-jiwg(?:-[a-z0-9-]+)?\.vercel\.app$/.test(origin)
+      /^https:\/\/photosendsystem-jiwg(?:-[a-z0-9-]+)?\.vercel\.app$/.test(origin) ||
+      /^https:\/\/photosendsystem(?:-[a-z0-9-]+)?\.onrender\.com$/.test(origin)
     ) {
       return callback(null, true);
     }
