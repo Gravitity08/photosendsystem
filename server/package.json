@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "send-email.js",
   "scripts": {
-     "start": "node server/api/send-email.js"
+     "start": "node api/send-email.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
