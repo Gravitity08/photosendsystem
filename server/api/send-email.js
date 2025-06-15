@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 4000;
 // ─────────────────────────────
 // ✅ 미들웨어
 app.use(cors({
-  origin: "https://photosendsystem-jiwg-kahddfy3b-leetaehoons-projects.vercel.app/"  // 정확한 Vercel 주소 입력
+  origin: "https://photosendsystem-jiwg-ezs81e8g8-leetaehoons-projects.vercel.app/"  // 정확한 Vercel 주소 입력
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
