@@ -4,11 +4,10 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
-const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-const cors = require("cors");
+
 const allowedOrigins = [
   "https://photosendsystem-jiwg.vercel.app",
   "https://photosendsystem-jiwg-ezs81e8g8-leetaehoons-projects.vercel.app"
@@ -44,7 +43,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 // ─────────────────────────────
 // ✅ 메일 전송 라우트
-app.post("/send-email", cors(corsOptions), upload.array("files"), async (req, res) => {
+app.post("/send-email", upload.fields([{ name: "files", maxCount: 100 }]), async (req, res) => {
   try {
     const { customerName, phoneNumber, deceasedName } = req.body;
     const files = req.files;
