@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 const allowedOrigins = [
-  "https://photosendsystem-jiwg-kahddfy3b-leetaehoons-projects.vercel.app",
+  "https://photosendsystem-jiwg.vercel.app/",
   "https://photosendsystem-jiwg-ezs81e8g8-leetaehoons-projects.vercel.app",
 ];
 
