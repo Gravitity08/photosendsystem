@@ -134,11 +134,8 @@ const App = () => {
       selectedFiles.forEach(file => formData.append('files', file));
 
       const response = await fetch('https://photosendsystem-1.onrender.com/send-email', {
-  method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: formData,
+        method: 'POST',
+        body: formData, // ✅ Content-Type은 삭제해야 함
       });
 
       const result = await response.json();
