@@ -172,7 +172,7 @@ const App = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="customerName" className="block text-gray-700 text-sm font-semibold mb-2">
-              고객 이름 <span className="text-red-500">*</span>
+              이름 <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -202,13 +202,13 @@ const App = () => {
 
           <div>
             <label htmlFor="deceasedName" className="block text-gray-700 text-sm font-semibold mb-2">
-              고인 이름 <span className="text-red-500">*</span>
+              가족 이름 <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               id="deceasedName"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
-              placeholder="고인 이름을 입력하세요"
+              placeholder="가족 이름을 입력하세요"
               value={deceasedName}
               onChange={(e) => handleInputChange(e, setDeceasedName)}
               required
