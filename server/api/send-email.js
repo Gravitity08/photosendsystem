@@ -21,21 +21,6 @@ const corsOptions = {
 app.use(cors(corsOptions));               // 모든 라우트에 CORS 적용
 app.options("/send-email", cors(corsOptions)); // preflight 처리
 
-// ✅ CORS: origin 허용 + preflight 처리
-const allowedOriginsRegex = /^https:\/\/photosendsystem-[a-z0-9]+-leetaehoons-projects\.vercel\.app$/;
-
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // 서버 간 요청 허용
-    if (allowedOriginsRegex.test(origin)) {
-      return callback(null, true);
-    }
-    callback(new Error("Not allowed by CORS"));
-  }
-}));
-
-app.options("/send-email", cors()); // ✅ preflight OPTIONS 처리
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
