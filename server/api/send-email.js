@@ -39,11 +39,11 @@ const upload = multer({ storage: multer.memoryStorage() });
 // 5) 메일 전송 API
 app.post(
   "/send-email",
-  upload.fields([{ name: "files", maxCount: 100 }]),
+  upload.array("files", 100),
   async (req, res) => {
     try {
       const { customerName, phoneNumber, deceasedName } = req.body;
-      const files = req.files;
+      const files = req.files;  // 이제 배열입니다
 
       if (!customerName || !phoneNumber || !deceasedName || files.length === 0) {
         return res.status(400).json({ error: "모든 필수 항목을 입력해 주세요." });
