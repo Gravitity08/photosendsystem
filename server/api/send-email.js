@@ -79,7 +79,7 @@ app.post(
 );
 
 // 6) SPA용 Catch-all 라우트
-app.get("/*", (req, res) => {
+app.get("/*splat", (req, res) => {
   res.sendFile(path.join(buildPath, "index.html"));
 });
 
