@@ -10,22 +10,20 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 const allowedOrigins = [
-  "https://photosendsystem-lwo1-mkj3qesxw-leetaehoons-projects.vercel.app",
-  "https://photosendsystem-lwo1.vercel.app",
-  "https://photosendsystem-jiwg.vercel.app",
-  "https://photosendsystem-jiwg-ezs81e8g8-leetaehoons-projects.vercel.app",
+  "https://photosendsystem.vercel.app"
 ];
 
 // ✅ CORS: origin 허용 + preflight 처리
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
+    if (!origin) return callback(null, true); // 서버-서버 요청 등 허용
+    if (/^https:\/\/photosendsystem-jiwg-[a-z0-9]+-leetaehoons-projects\.vercel\.app$/.test(origin)) {
+      return callback(null, true);
     }
+    callback(new Error("Not allowed by CORS"));
   }
 }));
+
 app.options("*", cors()); // ✅ preflight OPTIONS 처리
 
 app.use(express.json());
