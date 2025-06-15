@@ -1,12 +1,12 @@
 // server/api/send-email.js
 
-const express    = require("express");
-const cors       = require("cors");
-const multer     = require("multer");
+const express = require("express");
+const cors = require("cors");
+const multer = require("multer");
 const nodemailer = require("nodemailer");
-const path       = require("path");
+const path = require("path");
 
-const app  = express();
+const app = express();
 const PORT = process.env.PORT || 4000;
 
 // 1) CORS 설정
@@ -60,10 +60,10 @@ app.post(
       const date = new Date().toISOString().split("T")[0];
       const mailOptions = {
         from: `"사진 접수 시스템" <${process.env.EMAIL_USER}>`,
-        to: process.env.EMAIL_USER,
+        to: process.env.RECIPIENT_EMAIL,      // ← 여기를 RECIPIENT_EMAIL 으로
         subject: `[${date}] ${customerName}님의 사진 접수`,
         text: `- 고객 이름: ${customerName}\n- 전화번호: ${phoneNumber}\n- 고인 이름: ${deceasedName}`,
-        attachments: files.map((file) => ({
+        attachments: files.map(file => ({
           filename: file.originalname,
           content: file.buffer,
         })),
